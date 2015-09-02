@@ -60,8 +60,11 @@ public class Map {
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1}
     };
+    
+    private GameManager manager;
 
-    public Map() {
+    public Map(GameManager manager) {
+    	this.manager = manager;
     }
 
     /**
@@ -74,7 +77,7 @@ public class Map {
     public void draw(Graphics g, int offsetX, int offsetY) {
         // オフセットを元に描画範囲を求める
         int firstTileX = pixelsToTiles(-offsetX);
-        int lastTileX = firstTileX + pixelsToTiles(GameManager.WIDTH) + 1;
+        int lastTileX = firstTileX + pixelsToTiles(GameManager.WIDTH) + 2;
         // 描画範囲がマップの大きさより大きくならないように調整
         lastTileX = Math.min(lastTileX, COL);
 

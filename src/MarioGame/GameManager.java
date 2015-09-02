@@ -25,7 +25,7 @@ public class GameManager{
 	public GameManager(){
 
         // マップを作成
-        map = new Map();
+        map = new Map(this);
 
         // プレイヤーを作成
         player = new Player(192, 32, map);
@@ -74,6 +74,10 @@ public class GameManager{
 		if((keytype|KEY_PRESSED) > 0){
 			player.jump();
 		}
+	}
+	
+	public void exitRequest(){
+		
 	}
 
 }
