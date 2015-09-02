@@ -31,21 +31,27 @@ public class GameManager{
         player = new Player(192, 32, map);
 	}
 	
-	public void update(){
+	private void culcOffset(){
 
 
         // X方向のオフセットを計算
-        offsetX = MainPanel.WIDTH / 2 - (int)player.getX();
+        offsetX = WIDTH / 2 - (int)player.getX();
         // マップの端ではスクロールしないようにする
         offsetX = Math.min(offsetX, 0);
-        offsetX = Math.max(offsetX, MainPanel.WIDTH - Map.WIDTH);
+        offsetX = Math.max(offsetX, WIDTH - Map.WIDTH);
 
         // Y方向のオフセットを計算
-        offsetY = MainPanel.HEIGHT / 2 - (int)player.getY();
+        offsetY = HEIGHT / 2 - (int)player.getY();
         // マップの端ではスクロールしないようにする
         offsetY = Math.min(offsetY, 0);
-        offsetY = Math.max(offsetY, MainPanel.HEIGHT - Map.HEIGHT);
+        offsetY = Math.max(offsetY, HEIGHT - Map.HEIGHT);	
+	}
+	
+	public void update(){
 
+		culcOffset();
+        
+        player.update();
 	}
 	
 	public void draw(Graphics g){

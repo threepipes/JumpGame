@@ -74,12 +74,12 @@ public class Map {
     public void draw(Graphics g, int offsetX, int offsetY) {
         // オフセットを元に描画範囲を求める
         int firstTileX = pixelsToTiles(-offsetX);
-        int lastTileX = firstTileX + pixelsToTiles(MainPanel.WIDTH) + 1;
+        int lastTileX = firstTileX + pixelsToTiles(GameManager.WIDTH) + 1;
         // 描画範囲がマップの大きさより大きくならないように調整
         lastTileX = Math.min(lastTileX, COL);
 
         int firstTileY = pixelsToTiles(-offsetY);
-        int lastTileY = firstTileY + pixelsToTiles(MainPanel.HEIGHT) + 1;
+        int lastTileY = firstTileY + pixelsToTiles(GameManager.HEIGHT) + 1;
         // 描画範囲がマップの大きさより大きくならないように調整
         lastTileY = Math.min(lastTileY, ROW);
 

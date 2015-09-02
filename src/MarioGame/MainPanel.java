@@ -18,7 +18,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
     public MainPanel() {
         // パネルの推奨サイズを設定、pack()するときに必要
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        setPreferredSize(new Dimension(GameManager.WIDTH, GameManager.HEIGHT));
         // パネルがキー入力を受け付けるようにする
         setFocusable(true);
 
@@ -61,7 +61,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
             // 休止
             try {
-                Thread.sleep(20);
+                Thread.sleep(30);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
