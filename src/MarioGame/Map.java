@@ -14,20 +14,20 @@ import java.awt.Point;
  *  
  */
 public class Map {
-    // ƒ^ƒCƒ‹ƒTƒCƒY
+    // ã‚¿ã‚¤ãƒ«ã‚µã‚¤ã‚º
     public static final int TILE_SIZE = 32;
-    // s”
+    // è¡Œæ•°
     public static final int ROW = 30;
-    // —ñ”
+    // åˆ—æ•°
     public static final int COL = 30;
-    // •
+    // å¹…
     public static final int WIDTH = TILE_SIZE * COL;
-    // ‚‚³
+    // é«˜ã•
     public static final int HEIGHT = TILE_SIZE * ROW;
-    // d—Í
+    // é‡åŠ›
     public static final double GRAVITY = 1.0;
 
-    // ƒ}ƒbƒv
+    // ãƒãƒƒãƒ—
     private int[][] map = {
             {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
             {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -65,30 +65,30 @@ public class Map {
     }
 
     /**
-     * ƒ}ƒbƒv‚ğ•`‰æ‚·‚é
+     * ãƒãƒƒãƒ—ã‚’æç”»ã™ã‚‹
      * 
-     * @param g •`‰æƒIƒuƒWƒFƒNƒg
-     * @param offsetX X•ûŒüƒIƒtƒZƒbƒg
-     * @param offsetY Y•ûŒüƒIƒtƒZƒbƒg
+     * @param g æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param offsetX Xæ–¹å‘ã‚ªãƒ•ã‚»ãƒƒãƒˆ
+     * @param offsetY Yæ–¹å‘ã‚ªãƒ•ã‚»ãƒƒãƒˆ
      */
     public void draw(Graphics g, int offsetX, int offsetY) {
-        // ƒIƒtƒZƒbƒg‚ğŒ³‚É•`‰æ”ÍˆÍ‚ğ‹‚ß‚é
+        // ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’å…ƒã«æç”»ç¯„å›²ã‚’æ±‚ã‚ã‚‹
         int firstTileX = pixelsToTiles(-offsetX);
         int lastTileX = firstTileX + pixelsToTiles(GameManager.WIDTH) + 1;
-        // •`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚Ì‘å‚«‚³‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+        // æç”»ç¯„å›²ãŒãƒãƒƒãƒ—ã®å¤§ãã•ã‚ˆã‚Šå¤§ãããªã‚‰ãªã„ã‚ˆã†ã«èª¿æ•´
         lastTileX = Math.min(lastTileX, COL);
 
         int firstTileY = pixelsToTiles(-offsetY);
         int lastTileY = firstTileY + pixelsToTiles(GameManager.HEIGHT) + 1;
-        // •`‰æ”ÍˆÍ‚ªƒ}ƒbƒv‚Ì‘å‚«‚³‚æ‚è‘å‚«‚­‚È‚ç‚È‚¢‚æ‚¤‚É’²®
+        // æç”»ç¯„å›²ãŒãƒãƒƒãƒ—ã®å¤§ãã•ã‚ˆã‚Šå¤§ãããªã‚‰ãªã„ã‚ˆã†ã«èª¿æ•´
         lastTileY = Math.min(lastTileY, ROW);
 
         g.setColor(Color.ORANGE);
         for (int i = firstTileY; i < lastTileY; i++) {
             for (int j = firstTileX; j < lastTileX; j++) {
-                // map‚Ì’l‚É‰‚¶‚Ä‰æ‘œ‚ğ•`‚­
+                // mapã®å€¤ã«å¿œã˜ã¦ç”»åƒã‚’æã
                 switch (map[i][j]) {
-                    case 1 : // ƒuƒƒbƒN
+                    case 1 : // ãƒ–ãƒ­ãƒƒã‚¯
                         g.fillRect(tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, TILE_SIZE, TILE_SIZE);
                         break;
                 }
@@ -97,15 +97,15 @@ public class Map {
     }
     
     /**
-     * (newX, newY)‚ÅÕ“Ë‚·‚éƒuƒƒbƒN‚ÌÀ•W‚ğ•Ô‚·
-     * @param player ƒvƒŒƒCƒ„[‚Ö‚ÌQÆ
-     * @param newX XÀ•W
-     * @param newY YÀ•W
-     * @return Õ“Ë‚·‚éƒuƒƒbƒN‚ÌÀ•W
+     * (newX, newY)ã§è¡çªã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™ã‚’è¿”ã™
+     * @param player ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¸ã®å‚ç…§
+     * @param newX Xåº§æ¨™
+     * @param newY Yåº§æ¨™
+     * @return è¡çªã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™
      */
     public Point getTileCollision(Player player, double newX, double newY) {
-        // ¬”“_ˆÈ‰ºØ‚èã‚°
-        // •‚“®¬”“_‚ÌŠÖŒW‚ÅØ‚èã‚°‚µ‚È‚¢‚ÆÕ“Ë‚µ‚Ä‚È‚¢‚Æ”»’è‚³‚ê‚éê‡‚ª‚ ‚é
+        // å°æ•°ç‚¹ä»¥ä¸‹åˆ‡ã‚Šä¸Šã’
+        // æµ®å‹•å°æ•°ç‚¹ã®é–¢ä¿‚ã§åˆ‡ã‚Šä¸Šã’ã—ãªã„ã¨è¡çªã—ã¦ãªã„ã¨åˆ¤å®šã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹
         newX = Math.ceil(newX);
         newY = Math.ceil(newY);
         
@@ -119,19 +119,19 @@ public class Map {
         int toTileX = pixelsToTiles(toX + Player.WIDTH - 1);
         int toTileY = pixelsToTiles(toY + Player.HEIGHT - 1);
 
-        // Õ“Ë‚µ‚Ä‚¢‚é‚©’²‚×‚é
+        // è¡çªã—ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
         for (int x = fromTileX; x <= toTileX; x++) {
             for (int y = fromTileY; y <= toTileY; y++) {
-                // ‰æ–ÊŠO‚ÍÕ“Ë
+                // ç”»é¢å¤–ã¯è¡çª
                 if (x < 0 || x >= COL) {
                     return new Point(x, y);
                 }
                 if (y < 0 || y >= ROW) {
-                	//ŒŠ‚É—‚¿‚½‚çƒQ[ƒ€ƒI[ƒo[
+                	//ç©´ã«è½ã¡ãŸã‚‰ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼
                 	System.exit(0);
                     //return new Point(x, y);
                 }
-                // ƒuƒƒbƒN‚ª‚ ‚Á‚½‚çÕ“Ë
+                // ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã£ãŸã‚‰è¡çª
                 if (map[y][x] == 1) {
                     return new Point(x, y);
                 }
@@ -142,18 +142,18 @@ public class Map {
     }
     
     /**
-     * ƒsƒNƒZƒ‹’PˆÊ‚ğƒ^ƒCƒ‹’PˆÊ‚É•ÏX‚·‚é
-     * @param pixels ƒsƒNƒZƒ‹’PˆÊ
-     * @return ƒ^ƒCƒ‹’PˆÊ
+     * ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã‚’ã‚¿ã‚¤ãƒ«å˜ä½ã«å¤‰æ›´ã™ã‚‹
+     * @param pixels ãƒ”ã‚¯ã‚»ãƒ«å˜ä½
+     * @return ã‚¿ã‚¤ãƒ«å˜ä½
      */
     public static int pixelsToTiles(double pixels) {
         return (int)Math.floor(pixels / TILE_SIZE);
     }
     
     /**
-     * ƒ^ƒCƒ‹’PˆÊ‚ğƒsƒNƒZƒ‹’PˆÊ‚É•ÏX‚·‚é
-     * @param tiles ƒ^ƒCƒ‹’PˆÊ
-     * @return ƒsƒNƒZƒ‹’PˆÊ
+     * ã‚¿ã‚¤ãƒ«å˜ä½ã‚’ãƒ”ã‚¯ã‚»ãƒ«å˜ä½ã«å¤‰æ›´ã™ã‚‹
+     * @param tiles ã‚¿ã‚¤ãƒ«å˜ä½
+     * @return ãƒ”ã‚¯ã‚»ãƒ«å˜ä½
      */
     public static int tilesToPixels(int tiles) {
         return tiles * TILE_SIZE;

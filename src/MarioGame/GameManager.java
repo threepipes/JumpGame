@@ -4,45 +4,45 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class GameManager{
-    // ƒpƒlƒ‹ƒTƒCƒY
+    // ãƒ‘ãƒãƒ«ã‚µã‚¤ã‚º
     public static final int WIDTH = 540;
     public static final int HEIGHT = 960;
 
-    // ƒ}ƒbƒv
+    // ãƒãƒƒãƒ—
     private Map map;
 
-    // ƒvƒŒƒCƒ„[
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
     private Player player;
     
     private int offsetX;
     private int offsetY;
 
-    // ƒL[‚Ìó‘Ôi‰Ÿ‚³‚ê‚Ä‚¢‚é‚©A‰Ÿ‚³‚ê‚Ä‚È‚¢‚©j
+    // ã‚­ãƒ¼ã®çŠ¶æ…‹ï¼ˆæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹ã€æŠ¼ã•ã‚Œã¦ãªã„ã‹ï¼‰
 //    private boolean leftPressed;
 //    private boolean rightPressed;
 //    private boolean upPressed;
     
 	public GameManager(){
 
-        // ƒ}ƒbƒv‚ğì¬
+        // ãƒãƒƒãƒ—ã‚’ä½œæˆ
         map = new Map();
 
-        // ƒvƒŒƒCƒ„[‚ğì¬
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ä½œæˆ
         player = new Player(192, 32, map);
 	}
 	
 	private void culcOffset(){
 
 
-        // X•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+        // Xæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         offsetX = WIDTH / 2 - (int)player.getX();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         offsetX = Math.min(offsetX, 0);
         offsetX = Math.max(offsetX, WIDTH - Map.WIDTH);
 
-        // Y•ûŒü‚ÌƒIƒtƒZƒbƒg‚ğŒvZ
+        // Yæ–¹å‘ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
         offsetY = HEIGHT / 2 - (int)player.getY();
-        // ƒ}ƒbƒv‚Ì’[‚Å‚ÍƒXƒNƒ[ƒ‹‚µ‚È‚¢‚æ‚¤‚É‚·‚é
+        // ãƒãƒƒãƒ—ã®ç«¯ã§ã¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãªã„ã‚ˆã†ã«ã™ã‚‹
         offsetY = Math.min(offsetY, 0);
         offsetY = Math.max(offsetY, HEIGHT - Map.HEIGHT);	
 	}
@@ -56,15 +56,15 @@ public class GameManager{
 	
 	public void draw(Graphics g){
 
-        // ”wŒi‚ğ•‚Å“h‚è‚Â‚Ô‚·
+        // èƒŒæ™¯ã‚’é»’ã§å¡—ã‚Šã¤ã¶ã™
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
         
 
-        // ƒ}ƒbƒv‚ğ•`‰æ
+        // ãƒãƒƒãƒ—ã‚’æç”»
         map.draw(g, offsetX, offsetY);
 
-        // ƒvƒŒƒCƒ„[‚ğ•`‰æ
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’æç”»
         player.draw(g, offsetX, offsetY);
 	}
 	

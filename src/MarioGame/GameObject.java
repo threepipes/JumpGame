@@ -8,11 +8,11 @@ import javax.swing.ImageIcon;
 
 
 public class GameObject {
-	// •
+	// å¹…
     public static final int WIDTH = 32;
-    // ‚‚³
+    // é«˜ã•
     public static final int HEIGHT = 32;
- // ˆÊ’u
+ // ä½ç½®
     private double x;
     private double y;
     
