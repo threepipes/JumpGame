@@ -3,8 +3,8 @@ package MarioGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileInputStream;
 
 /*
  * Created on 2005/06/16
@@ -66,7 +66,7 @@ public class Map {
     private GameManager manager;
 
     public Map(GameManager manager) {
-    	load("map.map");
+    	load("Map/map.map");
     	this.manager = manager;
     }
 
@@ -154,9 +154,9 @@ public class Map {
      */
     private void load(String filename) {
         try {
-            InputStream in = getClass().getResourceAsStream(filename);
+            FileInputStream in = new FileInputStream(new File(filename));
             ROW = in.read();
-            COL = in.read();
+            COL = in.read()<<8 | in.read();
             // マップサイズを設定
             WIDTH = TILE_SIZE * COL;
             HEIGHT = TILE_SIZE * ROW;
