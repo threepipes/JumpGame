@@ -28,7 +28,7 @@ public class GameManager{
         map = new Map(this);
 
         // プレイヤーを作成
-        player = new Player(192, 32, map);
+        player = new Player(192, 890, map);
 	}
 	
 	private void culcOffset(){

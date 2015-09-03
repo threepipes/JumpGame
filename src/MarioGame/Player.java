@@ -20,7 +20,7 @@ public class Player extends GameObject{
     // 高さ
     public static final int HEIGHT = 32;
 	// スピード
-    private static final int SPEED = 6;
+    private static final int SPEED = 10;
     // ジャンプ力
     private static final int JUMP_SPEED = 20;
 
