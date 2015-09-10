@@ -14,19 +14,11 @@ import java.awt.Point;
  * @author mori
  *  
  */
-public class Player extends GameObject{
-	// 幅
-    public static final int WIDTH = 32;
-    // 高さ
-    public static final int HEIGHT = 32;
+public class Player extends Sprite{
 	// スピード
-    private static final int SPEED = 10;
+    private static final int SPEED = 8;
     // ジャンプ力
     private static final int JUMP_SPEED = 20;
-
-    // 位置
-    private double x;
-    private double y;
 
     // 速度
     private double vx;
@@ -35,16 +27,21 @@ public class Player extends GameObject{
     // 着地しているか
     private boolean onGround;
     
+    // 再ジャンプできるか
+    private boolean forceJump;
+    
     // マップへの参照
     private Map map;
     
     public Player(double x, double y, Map map) {
+    	super(x,y,map);
         this.x = x;
         this.y = y;
         this.map = map;
         vx = SPEED;
         vy = 0;
         onGround = false;
+        forceJump = false;
     }
     
     /**
@@ -72,11 +69,20 @@ public class Player extends GameObject{
      * ジャンプする
      */
     public void jump() {
-        if (onGround) {
+        if (onGround || forceJump) {
             // 上向きに速度を加える
             vy = -JUMP_SPEED;
             onGround = false;
+            forceJump = false;
         }
+    }
+    public void jump2(){
+    	vy = -JUMP_SPEED * 2;
+    	onGround = false;
+    }
+    
+    public void setForceJump(boolean forceJump) {
+        this.forceJump = forceJump;
     }
     
     /**
