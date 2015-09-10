@@ -3,6 +3,9 @@ package MarioGame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.LinkedList;
 
 /*
  * Created on 2005/06/16
@@ -17,53 +20,27 @@ public class Map {
     // タイルサイズ
     public static final int TILE_SIZE = 32;
     // 行数
-    public static final int ROW = 30;
+    public static int ROW;
     // 列数
-    public static final int COL = 30;
+    public static int COL;
     // 幅
-    public static final int WIDTH = TILE_SIZE * COL;
+    public static int WIDTH;
     // 高さ
-    public static final int HEIGHT = TILE_SIZE * ROW;
+    public static int HEIGHT;
     // 重力
-    public static final double GRAVITY = 1.0;
+    public static final double GRAVITY = 2.0;
+    
+    // スプライトリスト
+    private LinkedList sprites;
 
     // マップ
-    private int[][] map = {
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1},
-            {1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1},
-            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1}
-    };
+    private int[][] map;
     
     private GameManager manager;
 
     public Map(GameManager manager) {
+        sprites = new LinkedList();
+    	load("Map/map.map");
     	this.manager = manager;
     }
 
@@ -86,12 +63,13 @@ public class Map {
         // 描画範囲がマップの大きさより大きくならないように調整
         lastTileY = Math.min(lastTileY, ROW);
 
-        g.setColor(Color.ORANGE);
+        //g.setColor(Color.ORANGE);
         for (int i = firstTileY; i < lastTileY; i++) {
             for (int j = firstTileX; j < lastTileX; j++) {
                 // mapの値に応じて画像を描く
                 switch (map[i][j]) {
                     case 1 : // ブロック
+                    	g.setColor(Color.ORANGE);
                         g.fillRect(tilesToPixels(j) + offsetX, tilesToPixels(i) + offsetY, TILE_SIZE, TILE_SIZE);
                         break;
                 }
@@ -106,21 +84,21 @@ public class Map {
      * @param newY Y座標
      * @return 衝突するブロックの座標
      */
-    public Point getTileCollision(Player player, double newX, double newY) {
+    public Point getTileCollision(Sprite sprite, double newX, double newY) {
         // 小数点以下切り上げ
         // 浮動小数点の関係で切り上げしないと衝突してないと判定される場合がある
         newX = Math.ceil(newX);
         newY = Math.ceil(newY);
         
-        double fromX = Math.min(player.getX(), newX);
-        double fromY = Math.min(player.getY(), newY);
-        double toX = Math.max(player.getX(), newX);
-        double toY = Math.max(player.getY(), newY);
+        double fromX = Math.min(sprite.getX(), newX);
+        double fromY = Math.min(sprite.getY(), newY);
+        double toX = Math.max(sprite.getX(), newX);
+        double toY = Math.max(sprite.getY(), newY);
         
         int fromTileX = pixelsToTiles(fromX);
         int fromTileY = pixelsToTiles(fromY);
-        int toTileX = pixelsToTiles(toX + Player.WIDTH - 1);
-        int toTileY = pixelsToTiles(toY + Player.HEIGHT - 1);
+        int toTileX = pixelsToTiles(toX + sprite.WIDTH - 1);
+        int toTileY = pixelsToTiles(toY + sprite.HEIGHT - 1);
 
         // 衝突しているか調べる
         for (int x = fromTileX; x <= toTileX; x++) {
@@ -132,7 +110,6 @@ public class Map {
                 if (y < 0 || y >= ROW) {
                 	//穴に落ちたらゲームオーバー
                 	System.exit(0);
-                    //return new Point(x, y);
                 }
                 // ブロックがあったら衝突
                 if (map[y][x] == 1) {
@@ -142,6 +119,44 @@ public class Map {
         }
         
         return null;
+    }
+    
+
+    
+    /**
+     * ファイルからマップを読み込む
+     * 
+     * @param filename 読み込むマップデータのファイル名
+     */
+    private void load(String filename) {
+        try {
+        	FileInputStream in = new FileInputStream(new File(filename));
+            ROW = in.read();
+            COL = in.read()<<8 | in.read();
+            // マップサイズを設定
+            WIDTH = TILE_SIZE * COL;
+            HEIGHT = TILE_SIZE * ROW;
+            // マップを作成
+            map = new int[ROW][COL];
+            for (int i = 0; i < ROW; i++) {
+                for (int j = 0; j < COL; j++) {
+                    map[i][j] = in.read();
+                    switch (map[i][j]) {
+                    case 2:  // 針
+                        sprites.add(new Needle(tilesToPixels(j), tilesToPixels(i),/* "coin.gif",*/ this));
+                        break;
+                    case 3:  // ばね
+                    	sprites.add(new Spring(tilesToPixels(j),tilesToPixels(i),this));
+                    	break;
+                    case 4:	//クリボー
+                    	sprites.add(new Kuribo(tilesToPixels(j),tilesToPixels(i),this));
+                    	break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     /**
@@ -160,5 +175,25 @@ public class Map {
      */
     public static int tilesToPixels(int tiles) {
         return tiles * TILE_SIZE;
+    }
+    
+    /**
+     * @return Returns the width.
+     */
+    public int getWidth() {
+        return WIDTH;
+    }
+    
+    /**
+     * @return Returns the height.
+     */
+    public int getHeight() {
+        return HEIGHT;
+    }
+    /**
+     * @return Returns the sprites.
+     */
+    public LinkedList getSprites() {
+        return sprites;
     }
 }
