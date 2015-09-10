@@ -31,7 +31,7 @@ public class GameManager{
         map = new Map(this);
 
         // プレイヤーを作成
-        player = new Player(100, 890, map);
+        player = new Player(192, 890, map);
 	}
 	
     /**

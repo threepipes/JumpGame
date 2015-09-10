@@ -159,6 +159,7 @@ public class Map {
         }
     }
     
+    
     /**
      * ピクセル単位をタイル単位に変更する
      * @param pixels ピクセル単位
