@@ -15,7 +15,7 @@ import java.awt.Point;
  */
 public class Kuribo extends Sprite {
     // スピード
-    private static final double SPEED = 1;
+    private static final double SPEED = 3;
 
     // 速度
     protected double vx;
