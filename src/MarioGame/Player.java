@@ -42,6 +42,7 @@ public class Player extends Sprite{
         vy = 0;
         onGround = false;
         forceJump = false;
+        exist = true;
     }
     
     /**
@@ -98,12 +99,13 @@ public class Player extends Sprite{
         // 移動先座標で衝突するタイルの位置を取得
         // x方向だけ考えるのでy座標は変化しないと仮定
         Point tile = map.getTileCollision(this, newX, y);
+        if(!exist) return;
         if (tile == null) {
             // 衝突するタイルがなければ移動
             x = newX;
         } else {
             // 衝突するタイルがある場合
-        	System.exit(0);
+        	map.gameover();
             /*if (vx > 0) { // 右へ移動中なので右のブロックと衝突
                 // ブロックにめりこむ or 隙間がないように位置調整
                 //x = Map.tilesToPixels(tile.x) - WIDTH;
@@ -145,6 +147,16 @@ public class Player extends Sprite{
             }
         }
     }
+    
+    @Override
+    public void death() {
+    	exist = false;
+    	map.gameover();
+    }
+    
+    public boolean onGround(){
+    	return onGround;
+    }
 
     /**
      * プレイヤーを描画
@@ -163,6 +175,9 @@ public class Player extends Sprite{
      */
     public double getX() {
         return x;
+    }
+    public double getVX() {
+        return vx;
     }
     /**
      * @return Returns the y.

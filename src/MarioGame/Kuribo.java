@@ -1,7 +1,5 @@
 package MarioGame;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.Point;
 
 /*
@@ -20,16 +18,30 @@ public class Kuribo extends Sprite {
     // 速度
     protected double vx;
     protected double vy;
+    
+    double oldx, oldy;
 
     public Kuribo(double x, double y, Map map) {
         super(x, y, map);
+        oldx = x;
+        oldy = y;
         
         // 左に移動を続ける
         vx = -SPEED;
         vy = 0;
     }
+    
+    @Override
+    public void init() {
+    	this.x = oldx;
+    	this.y = oldy;
+    	vx = -SPEED;
+    	vy = 0;
+    	super.init();
+    }
 
     public void update() {
+    	if(!exist) return;
         // 重力で下向きに加速度がかかる
         vy += Map.GRAVITY;
 

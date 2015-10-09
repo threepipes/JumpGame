@@ -60,7 +60,7 @@ public class MainPanel extends JPanel implements Runnable, KeyListener {
 
             // 休止
             try {
-                Thread.sleep(30);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

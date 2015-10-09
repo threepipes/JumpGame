@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /*
@@ -31,17 +32,34 @@ public class Map {
     public static final double GRAVITY = 2.0;
     
     // スプライトリスト
-    private LinkedList sprites;
+    private LinkedList<Sprite> sprites;
 
     // マップ
     private int[][] map;
+    private int[][] initmap;
     
     private GameManager manager;
 
     public Map(GameManager manager) {
-        sprites = new LinkedList();
+        sprites = new LinkedList<>();
     	load("Map/map.map");
+    	Collections.sort(sprites);
     	this.manager = manager;
+    	initmap = new int[map.length][map[0].length];
+    	for(int i=0; i<map.length; i++){
+    		for(int j=0; j<map[i].length; j++){
+    			initmap[i][j] = map[i][j];
+    		}
+    	}
+    }
+    
+    public void resetMap(){
+       	for(int i=0; i<map.length; i++){
+    		for(int j=0; j<map[i].length; j++){
+    			map[i][j] = initmap[i][j];
+    		}
+    	}
+       	sprites.stream().forEach(e->e.init());
     }
 
     /**
@@ -101,7 +119,7 @@ public class Map {
         int toTileY = pixelsToTiles(toY + sprite.HEIGHT - 1);
 
         // 衝突しているか調べる
-        for (int x = fromTileX; x <= toTileX; x++) {
+        out:for (int x = fromTileX; x <= toTileX; x++) {
             for (int y = fromTileY; y <= toTileY; y++) {
                 // 画面外は衝突
                 if (x < 0 || x >= COL) {
@@ -109,7 +127,8 @@ public class Map {
                 }
                 if (y < 0 || y >= ROW) {
                 	//穴に落ちたらゲームオーバー
-                	System.exit(0);
+                	sprite.death();
+                	break out;
                 }
                 // ブロックがあったら衝突
                 if (map[y][x] == 1) {
@@ -121,7 +140,9 @@ public class Map {
         return null;
     }
     
-
+    public void gameover(){
+    	manager.gameOver();
+    }
     
     /**
      * ファイルからマップを読み込む

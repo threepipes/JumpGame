@@ -30,6 +30,8 @@ public class MarioLike extends JFrame {
     }
 
     public static void main(String[] args) {
+//    	GameManager m = new GameManager();
+//    	while(true) m.update();
         MarioLike frame = new MarioLike();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

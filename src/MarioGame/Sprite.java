@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  * @author mori
  *
  */
-public abstract class Sprite {
+public abstract class Sprite implements Comparable<Sprite>{
     // 位置
     protected double x;
     protected double y;
@@ -34,12 +34,14 @@ public abstract class Sprite {
 
     // マップへの参照
     protected Map map;
+    
+    protected boolean exist;
 
     public Sprite(double x, double y,/* String fileName,*/ Map map) {
         this.x = x;
         this.y = y;
         this.map = map;
-
+        exist = true;
         WIDTH = 32;
         HEIGHT = 32;
 
@@ -51,6 +53,10 @@ public abstract class Sprite {
         // アニメーション用スレッドを開始
 //        AnimationThread thread = new AnimationThread();
 //        thread.start();
+    }
+    
+    public void init(){
+    	exist = true;
     }
 
     /**
@@ -66,6 +72,7 @@ public abstract class Sprite {
      * @param offsetY Y方向オフセット
      */
     public void draw(int i,Graphics g, int offsetX, int offsetY) {
+    	if(!exist) return;
     	if(i==2)
     		g.setColor(Color.BLUE);
     	if(i==3)
@@ -95,6 +102,10 @@ public abstract class Sprite {
         
         return false;
     }
+    
+    public void death(){
+    	exist = false;
+    }
 
     /**
      * @return Returns the x.
@@ -119,6 +130,11 @@ public abstract class Sprite {
      */
     public int getHeight() {
         return HEIGHT;
+    }
+    
+    @Override
+    public int compareTo(Sprite o) {
+    	return (int)(x - o.x);
     }
 
     /**
